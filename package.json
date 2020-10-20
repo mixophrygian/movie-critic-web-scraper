@@ -1,0 +1,16 @@
+{
+  "name": "critic-match",
+  "version": "1.0.0",
+  "description": "an app to rate movies and see which critic you agree with most often",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eleanor Mazzarella",
+  "license": "ISC",
+  "dependencies": {
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^3.0.0",
+    "jsdom": "^16.4.0"
+  }
+}
