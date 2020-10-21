@@ -5,7 +5,6 @@ Climax
 Valerian_and_the_City_of_a_Thousand_Planets
 The_Neon_Demon
 Odd_Thomas
-Swiss_Army_Man
 Alita_Battle_Angel
 Birds_of_Prey_2020
 Rubber
@@ -34,9 +33,7 @@ Paul
 The_Interview_2014
 The_Heat
 Get_Him_to_the_Greek
-Bad_Teacher
 Friends_with_Benefits
-Date_Night
 The_Foreigner_2017
 Letters_to_Juliet
 Shes_Out_of_My_League

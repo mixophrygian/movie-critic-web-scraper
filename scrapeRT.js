@@ -26,6 +26,7 @@ const createCriticObjects = (dom) => {
   for (let value of criticNodes) {
     namesAndPublications.push(value.textContent)
   }
+  console.log("names and pubs", namesAndPublications)
   const justNames = namesAndPublications.filter(
     // TODO fix this because it sometimes breaks and returns publications idk why
     (item, index) => index % 2 === 0
@@ -70,7 +71,7 @@ function itsDone() {
 
 function saveCritics() {
   const flattened = allCritics.flat()
-  fs.readFile("criticObjects.json", "utf8", function readFileCallbback(
+  fs.readFile("newCriticObjects.json", "utf8", function readFileCallbback(
     err,
     data
   ) {
@@ -81,7 +82,7 @@ function saveCritics() {
       obj.push(flattened)
       const newFlat = obj.flat()
       const newJSON = JSON.stringify(newFlat)
-      fs.writeFile("criticObjects.json", newJSON, "utf8", itsDone)
+      fs.writeFile("newCriticObjects.json", newJSON, "utf8", itsDone)
     }
   })
 }
@@ -90,5 +91,5 @@ function saveCritics() {
 // function saveCritics() {
 //   const flattened = allCritics.flat()
 //   const json = JSON.stringify(flattened)
-//   fs.writeFile("criticObjects.json", json, "utf8", itsDone)
+//   fs.writeFile("newCriticObjects.json", json, "utf8", itsDone)
 // }
