@@ -3,7 +3,7 @@ const jsdom = require("jsdom")
 const { JSDOM } = jsdom
 const fs = require("fs")
 
-const exampleMovie = "hobo_with_a_shotgun"
+const exampleMovie = process.argv[2]
 
 const rottenTomatoesReview =
   "https://www.rottentomatoes.com/m/" +
@@ -62,12 +62,11 @@ function fetchMore() {
 fetchMore()
 
 function itsDone() {
-  console.log("fs is done now!")
+  console.log("criticObjects.json updated!")
 }
 
 function saveCritics() {
   const flattened = allCritics.flat()
-  let json = JSON.stringify(flattened)
   fs.readFile("criticObjects.json", "utf8", function readFileCallbback(
     err,
     data
@@ -76,17 +75,17 @@ function saveCritics() {
       console.log("whoops", err)
     } else {
       const obj = JSON.parse(data)
-      obj.concat(json)
-      const newJSON = JSON.stringify(obj)
-      fs.writeFile("criticObjects.json", json, "utf8", itsDone)
+      obj.push(flattened)
+      const newFlat = obj.flat()
+      const newJSON = JSON.stringify(newFlat)
+      fs.writeFile("criticObjects.json", newJSON, "utf8", itsDone)
     }
   })
 }
 
-// file already exists so I dont' need this anymore
+//file already exists so I dont' need this anymore
 // function saveCritics() {
 //   const flattened = allCritics.flat()
-//   console.log("flattened", flattened)
 //   const json = JSON.stringify(flattened)
 //   fs.writeFile("criticObjects.json", json, "utf8", itsDone)
 // }
