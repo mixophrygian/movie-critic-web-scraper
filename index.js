@@ -20,8 +20,7 @@ const fetchHTML = async (url, page) => {
 
 const createCriticObjects = (dom) => {
   let title = dom.window.document.querySelector("title").textContent
-  // TODO fix this because it breaks movies like Spider-Man and X-Men
-  title = title.slice(0, title.indexOf("-")).trim()
+  title = title.slice(0, title.lastIndexOf("-")).trim()
   const criticNodes = dom.window.document.querySelectorAll("div.critic_name a")
   const namesAndPublications = []
   for (let value of criticNodes) {
@@ -56,7 +55,7 @@ function fetchMore() {
       allCritics = [...allCritics, nextBatch]
       fetchMore()
     } else {
-      saveCritics()
+      saveCritics(dom)
     }
   })
 }
@@ -64,7 +63,9 @@ function fetchMore() {
 fetchMore()
 
 function itsDone() {
-  console.log("criticObjects.json updated!")
+  const criticCount = allCritics.flat().length
+  const title = allCritics[0][0].movies[0].title
+  console.log(`added ${criticCount} critics for ${title}`)
 }
 
 function saveCritics() {
