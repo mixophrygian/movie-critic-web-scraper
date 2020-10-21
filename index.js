@@ -20,6 +20,7 @@ const fetchHTML = async (url, page) => {
 
 const createCriticObjects = (dom) => {
   let title = dom.window.document.querySelector("title").textContent
+  // TODO fix this because it breaks movies like Spider-Man and X-Men
   title = title.slice(0, title.indexOf("-")).trim()
   const criticNodes = dom.window.document.querySelectorAll("div.critic_name a")
   const namesAndPublications = []
@@ -27,6 +28,7 @@ const createCriticObjects = (dom) => {
     namesAndPublications.push(value.textContent)
   }
   const justNames = namesAndPublications.filter(
+    // TODO fix this because it sometimes breaks and returns publications idk why
     (item, index) => index % 2 === 0
   )
   const reviewNodes = dom.window.document.querySelectorAll(
