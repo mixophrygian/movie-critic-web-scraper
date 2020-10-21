@@ -1,8 +1,9 @@
 const fetch = require("isomorphic-fetch")
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
+const fs = require("fs")
 
-const exampleMovie = "joker_2019"
+const exampleMovie = "hobo_with_a_shotgun"
 
 const rottenTomatoesReview =
   "https://www.rottentomatoes.com/m/" +
@@ -42,25 +43,50 @@ const createCriticObjects = (dom) => {
   return criticObjects
 }
 
-let nextBatch = ["placeholder"]
 let allCritics = []
-
-// find a way to repeat this fetch call until 'nextBBatch' comes back as an empty array, usually around page 2-3?
-
 let page = 1
-fetchHTML(rottenTomatoesReview, page)
-  .then((dom) => {
-    nextBatch = createCriticObjects(dom)
-    allCritics = [...allCritics, nextBatch]
-    page++
-    nextBatch = []
-  })
-  .then(() =>
-    fetchHTML(rottenTomatoesReview, page).then((dom) => {
-      nextBatch = createCriticObjects(dom)
-      allCritics = [...allCritics, nextBatch]
+
+function fetchMore() {
+  return fetchHTML(rottenTomatoesReview, page).then((dom) => {
+    let nextBatch = createCriticObjects(dom)
+    if (nextBatch.length > 0) {
       page++
-      nextBatch = []
-    })
-  )
-  .then(() => console.log(allCritics))
+      allCritics = [...allCritics, nextBatch]
+      fetchMore()
+    } else {
+      saveCritics()
+    }
+  })
+}
+
+fetchMore()
+
+function itsDone() {
+  console.log("fs is done now!")
+}
+
+function saveCritics() {
+  const flattened = allCritics.flat()
+  let json = JSON.stringify(flattened)
+  fs.readFile("criticObjects.json", "utf8", function readFileCallbback(
+    err,
+    data
+  ) {
+    if (err) {
+      console.log("whoops", err)
+    } else {
+      const obj = JSON.parse(data)
+      obj.concat(json)
+      const newJSON = JSON.stringify(obj)
+      fs.writeFile("criticObjects.json", json, "utf8", itsDone)
+    }
+  })
+}
+
+// file already exists so I dont' need this anymore
+// function saveCritics() {
+//   const flattened = allCritics.flat()
+//   console.log("flattened", flattened)
+//   const json = JSON.stringify(flattened)
+//   fs.writeFile("criticObjects.json", json, "utf8", itsDone)
+// }
