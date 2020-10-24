@@ -17,7 +17,7 @@ X_Men_Apocalypse
 The_Amazing_Spider_Man_2
 The_Amazing_Spider_Man
 It_Chapter_two
-Murder_on_the_Orient_Express
+Murder_on_the_Orient_Express_2017
 Ferdinand
 Cars_3
 Diary_of_a_Wimpy_Kid
@@ -44,7 +44,7 @@ The_Expendables
 The_Wolverine_2012
 Lone_Survivor
 Olympus_Has_Fallen
-Childs_Play
+Childs_Play_2019
 Cloud_Atlas
 Joker_2019
 Bohemian_Rhapsody
@@ -57,7 +57,7 @@ Ouija_Origin_of_Evil
 Solo_A_Star_Wars_Story
 The_Addams_Family
 Crimson_Peak
-Godzilla_King_of_the_Monsters
+Godzilla_King_of_the_Monsters_2019
 Kong_Skull_Island
 Rampage_2018
 Ghostbusters_2016
@@ -80,7 +80,7 @@ Yesterday_2019
 Vice_2018
 Spring_Breakers
 The_Babadook
-Sing
+Sing_2016
 Isnt_It_Romantic_2019
 The_Good_Dinosaur
 Tenet
