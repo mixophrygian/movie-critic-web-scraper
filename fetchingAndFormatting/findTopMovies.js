@@ -47,6 +47,24 @@ function itsDone(topMovies) {
   console.log(`the top ${HOW_MANY_MOVIES} movies are:`, topMovies)
 }
 
+const omdbEndpoint(title) = () => {
+  return "http://www.omdbapi.com/?apikey="+omdb_api+"&t=" + title
+}
+
+const fetchPosterArtSingleMovie = async (title) => {
+  const data = await fetch(omdbEndpoint(title)).then(response => response.json())
+  return data
+}
+
+const fetchPosterArt = (topMovies) => {
+  const moviesWithPosterArt = []
+  topMovies.forEach(async title => {
+    const movieData = await fetchPosterArtSingleMovie(title)
+    moviesWithPosterArt.push(movieData)
+  }) 
+  return moviesWithPosterArt
+}
+
 fs.readFile(
   "fetchingAndFormatting/consolidatedCriticObjects.json",
   "utf8",
@@ -56,7 +74,8 @@ fs.readFile(
     } else {
       const critics = JSON.parse(data)
       const topMovies = getNTopReviewedMovies(critics)(HOW_MANY_MOVIES)
-      const topMoviesJSON = JSON.stringify(topMovies)
+      const topMoviesWithPosterURLs = fetchPosterArt(topMovies)
+      const topMoviesJSON = JSON.stringify(topMoviesWithPosterURLs)
       fs.writeFile("fetchingAndFormatting/mostReviewedMovies.json", topMoviesJSON, (topMovies) =>
         itsDone(topMovies)
       )
