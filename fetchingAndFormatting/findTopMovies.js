@@ -1,4 +1,4 @@
-const HOW_MANY_MOVIES = 30
+const HOW_MANY_MOVIES = 40
 const fs = require("fs")
 
 function getNTopReviewedMovies(data) {
@@ -48,7 +48,7 @@ function itsDone(topMovies) {
 }
 
 fs.readFile(
-  "newConsolidatedCriticObjects.json",
+  "fetchingAndFormatting/consolidatedCriticObjects.json",
   "utf8",
   function readFileCallbback(err, data) {
     if (err) {
@@ -57,7 +57,7 @@ fs.readFile(
       const critics = JSON.parse(data)
       const topMovies = getNTopReviewedMovies(critics)(HOW_MANY_MOVIES)
       const topMoviesJSON = JSON.stringify(topMovies)
-      fs.writeFile("mostReviewedMovies.json", topMoviesJSON, (topMovies) =>
+      fs.writeFile("fetchingAndFormatting/mostReviewedMovies.json", topMoviesJSON, (topMovies) =>
         itsDone(topMovies)
       )
     }
