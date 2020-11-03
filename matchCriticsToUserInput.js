@@ -1,4 +1,5 @@
 const fs = require("fs")
+const HOW_MANY_CRITICS = 3
 
 const myPicks = [
   { title: "Interstellar", broadRating: "rotten" },
@@ -53,7 +54,7 @@ function findCriticsWhoAgree(criticData) {
     const criticsSorted = Object.entries(criticsWhoAgree).sort(
       (a, b) => b[1].moviesAgreed.length - a[1].moviesAgreed.length
     )
-    return criticsSorted.slice(0, 3)
+    return criticsSorted.slice(0, HOW_MANY_CRITICS)
   }
 }
 
@@ -88,7 +89,7 @@ function findCriticsWhoDisagree(criticData) {
     const criticsSorted = Object.entries(criticsWhoDisagree).sort(
       (a, b) => b[1].moviesDisagreed.length - a[1].moviesDisagreed.length
     )
-    return criticsSorted.slice(0, 3)
+    return criticsSorted.slice(0, HOW_MANY_CRITICS)
   }
 }
 
@@ -104,6 +105,7 @@ fs.readFile(
       const mostDisagreed = findCriticsWhoDisagree(critics)(myPicks)
       console.log(mostDisagreed)
       console.log(mostAgreed)
+      return { mostAgreed, mostDisagreed }
     }
   }
 )
