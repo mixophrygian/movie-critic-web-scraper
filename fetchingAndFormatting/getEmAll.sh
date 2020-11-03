@@ -8,4 +8,3 @@ done < movies.txt
 
 node consolidateCritics.js 
 node findTopMovies.js
-node addArt.js 
