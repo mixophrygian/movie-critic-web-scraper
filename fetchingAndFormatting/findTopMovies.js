@@ -79,12 +79,13 @@ fs.readFile(
       const critics = JSON.parse(data)
       const topMovies = getNTopReviewedMovies(critics)(HOW_MANY_MOVIES)
       /* the following movies need their poster URLs updated to reflect the remake art:
-      * the last jedi
+      * star wars: the last jedi (amazon url doesn't work?)
       * ghostbuster
       * halloween
       * child's play
       * aladdin
       * mulan
+      * birds of prey 
       */
       const topMoviesWithPosterURLs = await fetchPosterArt(topMovies)
       const topMoviesJSON = JSON.stringify(topMoviesWithPosterURLs)
