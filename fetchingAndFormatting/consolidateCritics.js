@@ -19,7 +19,7 @@ function consolidateCritics(critics) {
   //reduce list by critic name
 }
 
-fs.readFile("newCriticObjects.json", "utf8", function readFileCallbback(
+fs.readFile("rawCriticObjects.json", "utf8", function readFileCallbback(
   err,
   data
 ) {

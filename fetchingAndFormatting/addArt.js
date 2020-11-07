@@ -1,3 +1,6 @@
+/* 
+* This file is no longer necessary - findTopMovies fetches the art and outputs to /mostReviewedMovies
+*/
 const apiKey = process.argv[2]
 
 const fetch = require("isomorphic-fetch")

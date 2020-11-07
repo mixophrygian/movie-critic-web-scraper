@@ -1,5 +1,5 @@
 const fs = require("fs")
-const HOW_MANY_CRITICS = 3
+const HOW_MANY_CRITICS = 2
 
 const myPicks = [
   { title: "Interstellar", broadRating: "rotten" },

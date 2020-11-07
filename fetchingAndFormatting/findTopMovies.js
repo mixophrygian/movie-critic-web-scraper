@@ -1,5 +1,8 @@
-const HOW_MANY_MOVIES = 40
+const HOW_MANY_MOVIES = 98 // max size is the length of the movies.txt file, currently 98, may need to reduce this number of json file size is too large
 const fs = require("fs")
+const fetch = require("isomorphic-fetch")
+
+const omdb_api = process.argv[2]
 
 function getNTopReviewedMovies(data) {
   return function (movieCount) {
@@ -20,7 +23,7 @@ function getNTopReviewedMovies(data) {
     const moviesSorted = Object.entries(statistics.movies).sort(
       (a, b) => b[1] - a[1]
     )
-    return moviesSorted.slice(0, movieCount - 1).map((movie) => movie[0])
+    return moviesSorted.slice(0, movieCount +1).map((movie) => movie[0])
 
     //   const reviewersWhoHaveReviewedAll = data
     //     .filter((critic) => {
@@ -47,7 +50,7 @@ function itsDone(topMovies) {
   console.log(`the top ${HOW_MANY_MOVIES} movies are:`, topMovies)
 }
 
-const omdbEndpoint(title) = () => {
+const omdbEndpoint = (title) => {
   return "http://www.omdbapi.com/?apikey="+omdb_api+"&t=" + title
 }
 
@@ -56,27 +59,29 @@ const fetchPosterArtSingleMovie = async (title) => {
   return data
 }
 
-const fetchPosterArt = (topMovies) => {
+const fetchPosterArt = async(topMovies) => {
   const moviesWithPosterArt = []
-  topMovies.forEach(async title => {
-    const movieData = await fetchPosterArtSingleMovie(title)
-    moviesWithPosterArt.push(movieData)
-  }) 
+  for(const title of topMovies) {
+    const movieData = await fetchPosterArtSingleMovie(title).then(data => {
+        moviesWithPosterArt.push({title, poster: data.Poster})
+    })
+  }
   return moviesWithPosterArt
 }
 
 fs.readFile(
   "fetchingAndFormatting/consolidatedCriticObjects.json",
   "utf8",
-  function readFileCallbback(err, data) {
+  async function readFileCallbback(err, data) {
     if (err) {
       console.log("whoops", err)
     } else {
       const critics = JSON.parse(data)
       const topMovies = getNTopReviewedMovies(critics)(HOW_MANY_MOVIES)
-      const topMoviesWithPosterURLs = fetchPosterArt(topMovies)
+      // the last jedi and ghostbusters need their poster URLs fixed
+      const topMoviesWithPosterURLs = await fetchPosterArt(topMovies)
       const topMoviesJSON = JSON.stringify(topMoviesWithPosterURLs)
-      fs.writeFile("fetchingAndFormatting/mostReviewedMovies.json", topMoviesJSON, (topMovies) =>
+      fs.writeFile("fetchingAndFormatting/mostReviewedMoviesWithPosters.json", topMoviesJSON, (topMovies) =>
         itsDone(topMovies)
       )
     }
