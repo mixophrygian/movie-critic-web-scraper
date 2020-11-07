@@ -78,7 +78,13 @@ fs.readFile(
     } else {
       const critics = JSON.parse(data)
       const topMovies = getNTopReviewedMovies(critics)(HOW_MANY_MOVIES)
-      // the last jedi and ghostbusters need their poster URLs fixed
+      /* the following movies need their poster URLs updated to reflect the remake art:
+      * the last jedi
+      * ghostbuster
+      * halloween
+      * child's play
+      * aladdin
+      */
       const topMoviesWithPosterURLs = await fetchPosterArt(topMovies)
       const topMoviesJSON = JSON.stringify(topMoviesWithPosterURLs)
       fs.writeFile("fetchingAndFormatting/mostReviewedMoviesWithPosters.json", topMoviesJSON, (topMovies) =>
