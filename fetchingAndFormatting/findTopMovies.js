@@ -84,6 +84,7 @@ fs.readFile(
       * halloween
       * child's play
       * aladdin
+      * mulan
       */
       const topMoviesWithPosterURLs = await fetchPosterArt(topMovies)
       const topMoviesJSON = JSON.stringify(topMoviesWithPosterURLs)
