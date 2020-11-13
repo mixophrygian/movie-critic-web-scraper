@@ -85,7 +85,8 @@ fs.readFile(
       * child's play
       * aladdin
       * mulan
-      * birds of prey 
+      * birds of prey
+      * addams family (probably)
       */
       const topMoviesWithPosterURLs = await fetchPosterArt(topMovies)
       const topMoviesJSON = JSON.stringify(topMoviesWithPosterURLs)
