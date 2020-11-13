@@ -70,7 +70,7 @@ const fetchPosterArt = async(topMovies) => {
 }
 
 fs.readFile(
-  "fetchingAndFormatting/consolidatedCriticObjects.json",
+  "consolidatedCriticObjects.json",
   "utf8",
   async function readFileCallbback(err, data) {
     if (err) {
@@ -90,7 +90,7 @@ fs.readFile(
       */
       const topMoviesWithPosterURLs = await fetchPosterArt(topMovies)
       const topMoviesJSON = JSON.stringify(topMoviesWithPosterURLs)
-      fs.writeFile("fetchingAndFormatting/mostReviewedMoviesWithPosters.json", topMoviesJSON, (topMovies) =>
+      fs.writeFile("mostReviewedMoviesWithPosters.json", topMoviesJSON, (topMovies) =>
         itsDone(topMovies)
       )
     }
